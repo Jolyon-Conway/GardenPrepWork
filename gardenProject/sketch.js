@@ -1,4 +1,6 @@
-var fence;
+/** @format */
+
+let fence;
 
 function preload() {
 	fence = loadImage("images/fence.svg");
