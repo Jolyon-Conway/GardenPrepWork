@@ -1,9 +1,20 @@
 /** @format */
 
 let fence;
+let cartmanFront;
+let cartmanBack;
+let cartmanLeft;
+let cartmanRight;
+let lastDirection = "Right";
+let XPos = 600;
+let YPos = 600;
 
 function preload() {
 	fence = loadImage("images/fence.svg");
+	cartmanFront = loadImage("images/cartmanFront.png");
+	cartmanBack = loadImage("images/cartmanBack.png");
+	cartmanLeft = loadImage("images/cartmanLeft.png");
+	cartmanRight = loadImage("images/CartmanRight.png");
 }
 
 function setup() {
@@ -38,6 +49,34 @@ function draw() {
 	imageMode(CENTER);
 	image(fence, 600, 240);
 
+	//Cartman movement
+
+	if (lastDirection == "Front") {
+		image(cartmanFront, XPos, YPos, 100, 100);
+	} else if (lastDirection == "Back") {
+		image(cartmanBack, XPos, YPos, 100, 100);
+	} else if (lastDirection == "Left") {
+		image(cartmanLeft, XPos, YPos, 100, 100);
+	} else if (lastDirection == "Right") {
+		image(cartmanRight, XPos, YPos, 100, 100);
+	}
+
+	if (keyIsDown(LEFT_ARROW)) {
+		XPos -= 5;
+		lastDirection = "Left";
+	} else if (keyIsDown(RIGHT_ARROW)) {
+		XPos += 5;
+		lastDirection = "Right";
+	}
+
+	if (keyIsDown(UP_ARROW)) {
+		YPos -= 5;
+		lastDirection = "Back";
+	} else if (keyIsDown(DOWN_ARROW)) {
+		YPos += 5;
+		lastDirection = "Front";
+	}
+
 	/**  bounding box
     top left corner: 0, 310
     top right corner: 1200, 310
@@ -45,7 +84,9 @@ function draw() {
     bottom right corner: 1200, 1200
     */
 	/** 
-    //listen for a mouse click within a second and output the x and y coordinates of the canvas to the console
+
+
+
 	if (mouseIsPressed) {
 		console.log(mouseX, mouseY);
 	}
