@@ -77,18 +77,23 @@ function draw() {
 		lastDirection = "Front";
 	}
 
-	/**  bounding box
-    top left corner: 0, 310
-    top right corner: 1200, 310
-    bottom left corner: 0, 1200
-    bottom right corner: 1200, 1200
-    */
+	// bounding boxes
+
+	if (XPos < 50) {
+		XPos = 50;
+	} else if (XPos > 1150) {
+		XPos = 1150;
+	}
+
+	if (YPos < 310) {
+		YPos = 310;
+	} else if (YPos > 1150) {
+		YPos = 1150;
+	}
+
 	/** 
-
-
-
 	if (mouseIsPressed) {
 		console.log(mouseX, mouseY);
 	}
-    */
+	*/
 }
