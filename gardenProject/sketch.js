@@ -5,9 +5,26 @@ let cartmanFront;
 let cartmanBack;
 let cartmanLeft;
 let cartmanRight;
-let lastDirection = "Right";
+let beeHive;
+let lastDirection = "Front";
 let XPos = 600;
 let YPos = 600;
+let frame = 0;
+let stung = false;
+let beeHivesX = [];
+let beeHivesY = [];
+let flowersX = [];
+let flowersY = [];
+let flowersColours = [];
+
+
+// Functions
+function swap(arr, a, b) {
+	let temp = arr[a];
+	arr[a] = arr[b];
+	arr[b] = temp;
+}
+
 
 function preload() {
 	fence = loadImage("images/fence.svg");
@@ -15,13 +32,43 @@ function preload() {
 	cartmanBack = loadImage("images/cartmanBack.png");
 	cartmanLeft = loadImage("images/cartmanLeft.png");
 	cartmanRight = loadImage("images/CartmanRight.png");
+	beeHive = loadImage("images/beeHive.png");
+	cartmanStung = loadImage("images/cartmanStung.png");
+	flowerOrange = loadImage("images/flowerOrange.png");
+	flowerPink = loadImage("images/flowerPink.png");
+	flowerViolet = loadImage("images/flowerViolet.png");
+	flowerRed = loadImage("images/flowerRed.png");
 }
 
 function setup() {
 	createCanvas(1200, 1200);
+	frameRate(60);
+	for (let i = 0; i < 4; i++) {
+		beeHivesX.push(Math.floor(Math.random() * (1100 - 100) + 100));
+		beeHivesY.push(Math.floor(Math.random() * (1100 - 350) + 350));
+		
+	}
+	for (let i = 0; i < 100; i++) {
+		flowersX.push(Math.floor(Math.random() * (1100 - 100) + 100));
+		flowersY.push(Math.floor(Math.random() * (1100 - 350) + 350));
+		flowersColours.push(Math.floor(Math.random() * 4))
+	}
+	for (let i = 0; i < beeHivesY.length - 1; i++) {
+		for (let j = 0; j < beeHivesY.length - i - 1; j++) {
+			if (beeHivesY[j] > beeHivesY[j + 1]) {
+				swap(beeHivesY, j, j + 1)
+				swap(beeHivesX, j, j + 1)
+			}
+		}
+	}
 }
 
 function draw() {
+	frame += 1;
+	if (frame > 60) {
+		frame = 0;
+	}
+
 	//Drawring the persistent background
 	background("#8dd8f8");
 	fill("#057c3f");
@@ -49,26 +96,6 @@ function draw() {
 	imageMode(CENTER);
 	image(fence, 600, 240);
 
-	//Cartman movement
-
-	if (lastDirection == "Front") {
-		image(cartmanFront, XPos, YPos, 100, 100);
-	} else if (lastDirection == "Back") {
-		image(cartmanBack, XPos, YPos, 100, 100);
-	} else if (lastDirection == "Left") {
-		image(cartmanLeft, XPos, YPos, 100, 100);
-	} else if (lastDirection == "Right") {
-		image(cartmanRight, XPos, YPos, 100, 100);
-	}
-
-	if (keyIsDown(LEFT_ARROW)) {
-		XPos -= 5;
-		lastDirection = "Left";
-	} else if (keyIsDown(RIGHT_ARROW)) {
-		XPos += 5;
-		lastDirection = "Right";
-	}
-
 	if (keyIsDown(UP_ARROW)) {
 		YPos -= 5;
 		lastDirection = "Back";
@@ -90,10 +117,59 @@ function draw() {
 	} else if (YPos > 1150) {
 		YPos = 1150;
 	}
-
-	/** 
-	if (mouseIsPressed) {
-		console.log(mouseX, mouseY);
+	// flowers
+	for (i in flowersX) {
+		if (flowersColours[i] == 0) {
+			image(flowerOrange, flowersX[i], flowersY[i], 25, 25);
+		} else if ( flowersColours[i] == 1) {
+			image(flowerPink, flowersX[i], flowersY[i], 25, 25);
+		} else if (flowersColours[i] == 2) {
+			image(flowerViolet, flowersX[i], flowersY[i], 25, 25);
+		} else if (flowersColours[i] == 3) {
+			image(flowerRed, flowersX[i], flowersY[i], 25, 25);
+		}
 	}
-	*/
+
+
+	//bee hive logic
+	for (i in beeHivesX) {
+		image(beeHive, beeHivesX[i], beeHivesY[i], 300, 300);
+		if (
+			XPos > beeHivesX[i] - 115 &&
+			XPos < beeHivesX[i] + 55 &&
+			YPos > beeHivesY[i] - 55 &&
+			YPos < beeHivesY[i] + 115
+		) {
+			lastDirection = "Stung";
+		}
+	}
+	
+
+	//Cartman movement
+
+	if (lastDirection == "Front") {
+		image(cartmanFront, XPos, YPos, 100, 100);
+	} else if (lastDirection == "Back") {
+		image(cartmanBack, XPos, YPos, 100, 100);
+	} else if (lastDirection == "Left") {
+		image(cartmanLeft, XPos, YPos, 100, 100);
+	} else if (lastDirection == "Right") {
+		image(cartmanRight, XPos, YPos, 100, 100);
+	} else if (lastDirection == "Stung") {
+		image(cartmanStung, XPos, YPos, 100, 100);
+		textSize(20);
+		text(
+			"Ahh FUCK!!!\nThese FUCKING\nbees are FUCKING\nstinging me!!!",
+			XPos - 90,
+			YPos - 120
+		);
+	}
+
+	if (keyIsDown(LEFT_ARROW)) {
+		XPos -= 5;
+		lastDirection = "Left";
+	} else if (keyIsDown(RIGHT_ARROW)) {
+		XPos += 5;
+		lastDirection = "Right";
+	}
 }
