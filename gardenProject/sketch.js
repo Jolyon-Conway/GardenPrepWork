@@ -96,13 +96,7 @@ function draw() {
 	imageMode(CENTER);
 	image(fence, 600, 240);
 
-	if (keyIsDown(UP_ARROW)) {
-		YPos -= 5;
-		lastDirection = "Back";
-	} else if (keyIsDown(DOWN_ARROW)) {
-		YPos += 5;
-		lastDirection = "Front";
-	}
+	
 
 	// bounding boxes
 
@@ -168,8 +162,17 @@ function draw() {
 	if (keyIsDown(LEFT_ARROW)) {
 		XPos -= 5;
 		lastDirection = "Left";
-	} else if (keyIsDown(RIGHT_ARROW)) {
+	} 
+	if (keyIsDown(RIGHT_ARROW)) {
 		XPos += 5;
 		lastDirection = "Right";
+	}
+	if (keyIsDown(UP_ARROW)) {
+		YPos -= 5;
+		lastDirection = "Back";
+	}
+	if (keyIsDown(DOWN_ARROW)) {
+		YPos += 5;
+		lastDirection = "Front";
 	}
 }
