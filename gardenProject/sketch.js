@@ -1,5 +1,3 @@
-/** @format */
-
 let fence;
 let cartmanFront;
 let cartmanBack;
@@ -17,14 +15,12 @@ let flowersX = [];
 let flowersY = [];
 let flowersColours = [];
 
-
 // Functions
 function swap(arr, a, b) {
 	let temp = arr[a];
 	arr[a] = arr[b];
 	arr[b] = temp;
 }
-
 
 function preload() {
 	fence = loadImage("images/fence.svg");
@@ -46,18 +42,17 @@ function setup() {
 	for (let i = 0; i < 4; i++) {
 		beeHivesX.push(Math.floor(Math.random() * (1100 - 100) + 100));
 		beeHivesY.push(Math.floor(Math.random() * (1100 - 350) + 350));
-		
 	}
 	for (let i = 0; i < 100; i++) {
 		flowersX.push(Math.floor(Math.random() * (1100 - 100) + 100));
 		flowersY.push(Math.floor(Math.random() * (1100 - 350) + 350));
-		flowersColours.push(Math.floor(Math.random() * 4))
+		flowersColours.push(Math.floor(Math.random() * 4));
 	}
 	for (let i = 0; i < beeHivesY.length - 1; i++) {
 		for (let j = 0; j < beeHivesY.length - i - 1; j++) {
 			if (beeHivesY[j] > beeHivesY[j + 1]) {
-				swap(beeHivesY, j, j + 1)
-				swap(beeHivesX, j, j + 1)
+				swap(beeHivesY, j, j + 1);
+				swap(beeHivesX, j, j + 1);
 			}
 		}
 	}
@@ -96,8 +91,6 @@ function draw() {
 	imageMode(CENTER);
 	image(fence, 600, 240);
 
-	
-
 	// bounding boxes
 
 	if (XPos < 50) {
@@ -115,7 +108,7 @@ function draw() {
 	for (i in flowersX) {
 		if (flowersColours[i] == 0) {
 			image(flowerOrange, flowersX[i], flowersY[i], 25, 25);
-		} else if ( flowersColours[i] == 1) {
+		} else if (flowersColours[i] == 1) {
 			image(flowerPink, flowersX[i], flowersY[i], 25, 25);
 		} else if (flowersColours[i] == 2) {
 			image(flowerViolet, flowersX[i], flowersY[i], 25, 25);
@@ -123,7 +116,6 @@ function draw() {
 			image(flowerRed, flowersX[i], flowersY[i], 25, 25);
 		}
 	}
-
 
 	//bee hive logic
 	for (i in beeHivesX) {
@@ -137,7 +129,6 @@ function draw() {
 			lastDirection = "Stung";
 		}
 	}
-	
 
 	//Cartman movement
 
@@ -162,7 +153,7 @@ function draw() {
 	if (keyIsDown(LEFT_ARROW)) {
 		XPos -= 5;
 		lastDirection = "Left";
-	} 
+	}
 	if (keyIsDown(RIGHT_ARROW)) {
 		XPos += 5;
 		lastDirection = "Right";
