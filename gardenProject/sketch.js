@@ -1,3 +1,5 @@
+/** @format */
+
 let fence;
 let cartmanFront;
 let cartmanBack;
@@ -51,8 +53,8 @@ function setup() {
 	for (let i = 0; i < beeHivesY.length - 1; i++) {
 		for (let j = 0; j < beeHivesY.length - i - 1; j++) {
 			if (beeHivesY[j] > beeHivesY[j + 1]) {
-				swap(beeHivesY, j, j + 1);
-				swap(beeHivesX, j, j + 1);
+				//swap(beeHivesY, j, j + 1);
+				//swap(beeHivesX, j, j + 1);
 			}
 		}
 	}
