@@ -146,7 +146,7 @@ function draw() {
 		image(cartmanStung, XPos, YPos, 100, 100);
 		textSize(20);
 		text(
-			"Ahh FUCK!!!\nThese FUCKING\nbees are FUCKING\nstinging me!!!",
+			"Ahh F*&%* !!!\nThese F*&%*ING\nbees are F*&%*ING\nstinging me!!!",
 			XPos - 90,
 			YPos - 120
 		);
